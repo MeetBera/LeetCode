@@ -1,0 +1,28 @@
+class Solution {
+    public void reorderList(ListNode head) {
+        if(head == null || head.next == null) return;
+        int count = 0;
+        ListNode temp = head;
+        while(temp != null){
+            count++;
+            temp = temp.next;
+        }
+        Stack<ListNode> st = new Stack<>();
+        ListNode temp2 = head;
+        for(int i = 0; i < count; i++){
+            if(i >= (count + 1) / 2){
+                st.push(temp2);
+            }
+            temp2 = temp2.next;
+        }
+        ListNode temp3 = head;
+        while(!st.isEmpty()){
+            ListNode next = temp3.next;
+            ListNode top = st.pop();
+            temp3.next = top;
+            top.next = next;
+            temp3 = next;
+        }
+        temp3.next = null;
+    }
+}
